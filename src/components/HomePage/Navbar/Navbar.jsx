@@ -13,9 +13,11 @@ import { Flex,
   useColorMode 
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, ChevronDownIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar () {
   const { colorMode, toggleColorMode } = useColorMode();
+  const nav = useNavigate()
 
   return (
     <Flex
@@ -27,22 +29,30 @@ export default function NavBar () {
       color="white"
     >
       <Flex align="center">
-        <Text fontSize="xl" fontWeight="bold">
+        <Text fontSize="xl" fontWeight="bold" cursor={"pointer"}  onClick={() => {
+          nav("/")
+        }}>
           Kosile 
         </Text>
       </Flex>
 
       <Box>
 
-        <Button variant="ghost" color="white" mr="4">
+        <Button variant="ghost" color="white" mr="4" onClick={() => {
+          nav("/notes")
+        }}>
           My Notes
         </Button>
 
-        <Button variant="ghost" color="white" mr="4">
+        <Button variant="ghost" color="white" mr="4" onClick={() => {
+          nav("/register")
+        }}>
           Sign Up  
         </Button>
 
-        <Button variant="ghost" color="white">
+        <Button variant="ghost" color="white" mr="4" onClick={() => {
+          nav("/login")
+        }}>
           Login
         </Button>
       </Box>

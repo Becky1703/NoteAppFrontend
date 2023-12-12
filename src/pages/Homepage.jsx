@@ -8,7 +8,7 @@ export default function Homepage() {
     return (
       <Box p="8" textAlign="center">
         <ChakraImage src={welcomeImage} alt="Welcome Image" boxSize="100%" />
-        <Heading as="h1" fontSize="28px" mb="8">
+        <Heading as="h1" fontSize="32px" mb="8">
             Welcome to Kosile!
         </Heading>
         <Text>
