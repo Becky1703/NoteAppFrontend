@@ -16,7 +16,7 @@ export const noteReducer = (state = initialState, action) => {
         case GET_NOTES_LOADING: {
 
             return {
-                ...state, loading: true, error: false, data: []
+                ...state, loading: true
             }
         }
 
@@ -66,7 +66,7 @@ export const noteReducer = (state = initialState, action) => {
         case UPDATE_NOTES_SUCCESS: {
             
             return {
-                ...state, loading: false, error: false
+                ...state, loading: false
             }
         }
         
@@ -81,7 +81,7 @@ export const noteReducer = (state = initialState, action) => {
         case DELETE_NOTES_LOADING: {
 
             return {
-                ...state, loading: true, error: false, data: []
+                ...state, loading: true
             }
         }
 
@@ -100,8 +100,8 @@ export const noteReducer = (state = initialState, action) => {
         }
 
 
-        default: {
-            return state
-        }
+         default: {
+           return state
+       }
     }    
 }

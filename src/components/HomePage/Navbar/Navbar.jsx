@@ -1,23 +1,29 @@
 import React from 'react';
-import { Flex, 
-  Box, 
-  Text, 
-  Button, 
-  IconButton, 
-  Image, 
-  Menu, 
-  MenuButton, 
-  MenuList, 
-  MenuItem, 
-  MenuDivider, 
-  useColorMode 
+import {
+  Flex,
+  Box,
+  Text,
+  Button,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useColorMode,
+  Stack
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOGOUT } from '../../../Redux/users/user.types';
 
-export default function NavBar () {
+export default function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const nav = useNavigate()
+  const dispatch = useDispatch()
+  const { auth, token, loading, error } = useSelector((state) => state.userReducer)
 
   return (
     <Flex
@@ -29,61 +35,64 @@ export default function NavBar () {
       color="white"
     >
       <Flex align="center">
-        <Text fontSize="xl" fontWeight="bold" cursor={"pointer"}  onClick={() => {
+        <Text fontSize="xl" fontWeight="bold" cursor={"pointer"} onClick={() => {
           nav("/")
         }}>
-          Kosile 
+          Kosile
         </Text>
       </Flex>
 
-      <Box>
-
-        <Button variant="ghost" color="white" mr="4" onClick={() => {
+      <Flex alignItems={'center'}>
+        <Stack alignItems={"center"} direction={'row'} spacing={7}></Stack>
+        <Button display={auth==true?"block":"none"} variant="ghost" color="white" mr="4" onClick={() => {
           nav("/notes")
         }}>
           My Notes
         </Button>
 
-        <Button variant="ghost" color="white" mr="4" onClick={() => {
+        <Button display={auth==true?"none":"block"} variant="ghost" color="white" mr="4" onClick={() => {
           nav("/register")
         }}>
-          Sign Up  
+          Sign Up
         </Button>
 
-        <Button variant="ghost" color="white" mr="4" onClick={() => {
+        <Button display={auth==true?"none":"block"} variant="ghost" color="white" mr="4" onClick={() => {
           nav("/login")
         }}>
           Login
         </Button>
-      </Box>
 
-      <Menu>
-        <MenuButton
-          as={Button}
-          variant="link"
-          border="2px solid white"
-          padding="2"
-          color="black"
-          cursor="pointer"
-          rightIcon={<ChevronDownIcon />}
-        >
-          Menu
-        </MenuButton>
-        <MenuList>
-          <MenuItem>Option 1</MenuItem>
-          <MenuItem>Option 2</MenuItem>
-          <MenuItem>Option 3</MenuItem>
-        </MenuList>
-      </Menu>
 
-      <IconButton
-        ml="4"
-        icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-        onClick={toggleColorMode}
-        variant="ghost"
-        color="white"
-        aria-label="Toggle Dark Mode"
-      />
-    </Flex>
+        <Menu>
+          <MenuButton
+            as={Button}
+            variant="link"
+            border="2px solid white"
+            padding="2"
+            color="black"
+            cursor="pointer"
+            rightIcon={<ChevronDownIcon />}
+          >
+            Menu
+          </MenuButton>
+          <MenuList>
+            <MenuItem>Settings</MenuItem>
+            <MenuItem>About</MenuItem>
+            <MenuItem onClick={() => {
+              dispatch({ type: LOGOUT })
+            }}>Logout</MenuItem>
+          </MenuList>
+        </Menu>
+
+        <IconButton
+          ml="4"
+          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+          onClick={toggleColorMode}
+          variant="ghost"
+          color="white"
+          aria-label="Toggle Dark Mode"
+        />
+      </Flex>
+  </Flex >
   );
 };

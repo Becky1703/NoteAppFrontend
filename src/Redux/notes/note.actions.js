@@ -16,7 +16,7 @@ export const getNotes=()=>async(dispatch)=> {
         const res = await axios.get(BASE_URL+"/note",{
             method:"GET",
             headers:{
-                Authorization:token.token
+                Authorization:token
             }
         })
         const {status, message, data} = res.data
@@ -24,7 +24,7 @@ export const getNotes=()=>async(dispatch)=> {
 
         if(status==1){
 
-        dispatch({type:GET_NOTES_SUCCESS, payload:res.data})
+        dispatch({type:GET_NOTES_SUCCESS, payload:data})
         } else {
 
             dispatch({type: GET_NOTES_ERROR})
@@ -48,7 +48,7 @@ export const createNotes=(obj)=>async(dispatch)=> {
                 method: "POST",
                 data: obj,
                 headers: {
-                    Authorization:token.token
+                    Authorization:token
                 }
             })
             const {status, message} = res.data
@@ -56,7 +56,8 @@ export const createNotes=(obj)=>async(dispatch)=> {
             
             if(status==1){
     
-            dispatch({type:CREATE_NOTES_SUCCESS, payload:res.data})
+            dispatch({type:CREATE_NOTES_SUCCESS})
+            // dispatch(getNotes())
             } else {
     
                 dispatch({type: CREATE_NOTES_ERROR})
@@ -78,7 +79,7 @@ export const deleteNotes=(id)=>async(dispatch)=> {
         const res = await axios(BASE_URL+"/note/",{
             method: "DELETE",
             headers: {
-                Authorization:token.token,
+                Authorization:token,
                 id:id
             }
         })
@@ -87,7 +88,9 @@ export const deleteNotes=(id)=>async(dispatch)=> {
             
         if(status==1){
     
-        dispatch({type:DELETE_NOTES_SUCCESS, payload:res.data})
+        dispatch({type:DELETE_NOTES_SUCCESS})
+        // dispatch(getNotes())
+
         } else {
     
         dispatch({type: DELETE_NOTES_ERROR})
@@ -107,11 +110,11 @@ export const deleteNotes=(id)=>async(dispatch)=> {
         dispatch({type:UPDATE_NOTES_LOADING})
         try {
     
-            const res = await axios(BASE_URL+"/note/",{
+            const res = await axios(BASE_URL+"/note",{
                 method: "PATCH",
                 data: obj,
                 headers: {
-                    Authorization:token.token,
+                    Authorization:token,
                     id:id
                 }
             })
@@ -120,7 +123,9 @@ export const deleteNotes=(id)=>async(dispatch)=> {
             
             if(status==1){
     
-            dispatch({type:UPDATE_NOTES_SUCCESS, payload:res.data})
+            dispatch({type:UPDATE_NOTES_SUCCESS})
+            // dispatch(getNotes())
+
             } else {
     
                 dispatch({type: UPDATE_NOTES_ERROR})
