@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Flex, Heading, VStack } from "@chakra-ui/react";
+import { Button, Card, CardBody, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 
 export default function NoteCard({title, body, user, _id}){
     return <Card>
