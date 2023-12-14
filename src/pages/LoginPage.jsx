@@ -11,31 +11,33 @@ import { Box,
     Heading,
     Stack,
     Link,
-    useColorModeValue
+    useColorModeValue,
  } from "@chakra-ui/react";
 import loginImage from '../assets/login-image.png';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUser } from "../Redux/users/user.actions";
 
 
 export default function LoginPage() {
-    // const nav = useNavigate()
-    const {auth, token, loading, error} = useSelector((state) => state.userReducer)
+    const nav = useNavigate()
+    const {auth, token, loading, error} = useSelector((state)=>state.userReducer)
     console.log(auth, token)
-    // if(auth){
-        // nav("/notes")
-    // }
-    
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const dispatch = useDispatch()
+    useEffect(() => {
+       if(auth){
+          nav("/notes")
+       }
+    }, [auth, nav]);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
 
     const handleLogin =()=>{
-        dispatch(getUser({email, password}))
-    
+      dispatch(getUser({ email, password }))  
     }
+  
     
   return (
       <Flex padding={4} w="100%" alignItems="center">

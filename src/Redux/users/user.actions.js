@@ -1,10 +1,11 @@
 import axios from "axios";
 import { LOGIN_USER_ERROR, LOGIN_USER_LOADING, LOGIN_USER_SUCCESS } from "./user.types"
+import { BASE_URL } from "../../constants/config";
 
 export const getUser = (obj) => async(dispatch) => {
   dispatch({ type: LOGIN_USER_LOADING });
   try {
-    let data= await axios("http://localhost:4000/user/login", {
+    let data= await axios(BASE_URL+"/user/login", {
       method: "POST",
       data: obj,
     });
