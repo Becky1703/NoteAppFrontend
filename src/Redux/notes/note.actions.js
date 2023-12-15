@@ -5,6 +5,7 @@ import { CREATE_NOTES_ERROR, CREATE_NOTES_LOADING, CREATE_NOTES_SUCCESS, DELETE_
 import axios from "axios"
 import { BASE_URL } from "../../constants/config"
 import { store } from "../store"
+import { LOGOUT } from "../users/user.types"
 
 
 export const getNotes=()=>async(dispatch)=> {
@@ -57,12 +58,14 @@ export const createNotes=(obj)=>async(dispatch)=> {
             if(status==1){
     
             dispatch({type:CREATE_NOTES_SUCCESS})
-            // dispatch(getNotes())
-            } else {
-    
-                dispatch({type: CREATE_NOTES_ERROR})
+            dispatch(getNotes())
+            } else if(status==2) {
+
+                dispatch({type:LOGOUT})
             
-            }
+            }else{  
+                dispatch({type: CREATE_NOTES_ERROR})
+            } 
     
         } catch (error) {
             dispatch({type:CREATE_NOTES_ERROR})
@@ -89,12 +92,13 @@ export const deleteNotes=(id)=>async(dispatch)=> {
         if(status==1){
     
         dispatch({type:DELETE_NOTES_SUCCESS})
-        // dispatch(getNotes())
+        dispatch(getNotes())
+        } else if(status==2) {
+            dispatch({type:LOGOUT})
 
         } else {
     
-        dispatch({type: DELETE_NOTES_ERROR})
-            
+        dispatch({type: DELETE_NOTES_ERROR})      
         }
     
     } catch (error) {
@@ -103,7 +107,7 @@ export const deleteNotes=(id)=>async(dispatch)=> {
 }
 
 
-    export const updateNotes=(obj, id)=>async(dispatch)=> {
+    export const updateNotes=(id, obj)=>async(dispatch)=> {
         const {token} = store.getState().userReducer
 
 
@@ -124,10 +128,12 @@ export const deleteNotes=(id)=>async(dispatch)=> {
             if(status==1){
     
             dispatch({type:UPDATE_NOTES_SUCCESS})
-            // dispatch(getNotes())
+            dispatch(getNotes()) 
+            } else if(status==2) {
+
+                dispatch({type:LOGOUT})
 
             } else {
-    
                 dispatch({type: UPDATE_NOTES_ERROR})
             
             }
