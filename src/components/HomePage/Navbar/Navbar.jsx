@@ -12,7 +12,8 @@ import {
   MenuItem,
   MenuDivider,
   useColorMode,
-  Stack
+  Stack,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
@@ -75,7 +76,7 @@ export default function NavBar() {
           >
             Menu
           </MenuButton>
-          <MenuList>
+          <MenuList bg={useColorModeValue("teal", "teal.800")} color={useColorModeValue("black", "white")} >
             <MenuItem>Settings</MenuItem>
             <MenuItem>About</MenuItem>
             <MenuItem onClick={() => {
