@@ -1,5 +1,4 @@
 import { Box, Image as ChakraImage, Heading, Text } from "@chakra-ui/react";
-import { NavBar } from "../components/HomePage/Navbar";
 import welcomeImage from "../assets/welcome-image.jpg";
 
 

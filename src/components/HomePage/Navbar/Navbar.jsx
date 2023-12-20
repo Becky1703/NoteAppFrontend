@@ -20,10 +20,16 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOGOUT } from '../../../Redux/users/user.types';
 
+/**
+ * NavBar Component:
+ * This component is used to display the navigation bar at the top of the page.
+ * It contains the name of the app, sign in button, signup button and a color mode toggle button.
+ * It uses the Chakra UI library to style the components.
+ */
 export default function NavBar() {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const nav = useNavigate()
-  const dispatch = useDispatch()
+  const { colorMode, toggleColorMode } = useColorMode(); 
+  const nav = useNavigate() 
+  const dispatch = useDispatch() 
   const { auth, token, loading, error } = useSelector((state) => state.userReducer)
 
   return (
